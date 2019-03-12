@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 
 class ExampleComponent extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class ExampleComponent extends Component {
     return (
       <div>
         <input type="text" value={this.state.value} onChange={event => this.handleChange(event)} />
+        <Button variant="primary">Primary</Button>
       </div>
     );
   }
