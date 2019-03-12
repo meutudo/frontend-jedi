@@ -1,0 +1,26 @@
+{
+  "scripts": {
+    "start:dev": "webpack-dev-server --hot --mode=development",
+    "start": "webpack --mode production",
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.1",
+    "html-webpack-plugin": "^4.0.0-beta.5",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "react-hot-loader": "^4.8.0"
+  }
+}
