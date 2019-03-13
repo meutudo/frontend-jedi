@@ -4,6 +4,6 @@ import starWarsMoviesReduce from './starWarsMovies';
 import starWarsCharactersReduce from './starWarsCharacters';
 
 export default combineReducers({
-  starWarsMoviesReduce,
-  starWarsCharactersReduce
+  starWarsMovies: starWarsMoviesReduce,
+  starWarsCharacters: starWarsCharactersReduce
 });
