@@ -9,7 +9,7 @@ export const Types = {
 export function fetchMovies() {
   console.log('Fetch Movies ACTION CREATOR');
   return function(dispatch) {
-    return fetch('https://swapi.co/api/people/') // https://jsonplaceholder.typicode.com/todos/
+    return fetch('https://swapi.co/api/films/') // https://jsonplaceholder.typicode.com/todos/
       .then(response => response.json())
       .then(json => {
         console.log('Fetch Movies: then... dispatch...', json);

@@ -5,8 +5,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import StarWarsMovies from './containers/StarWarsMovies/StarWarsMovies.js';
-import StarWarsCharacters from './containers/StarWarsCharacters/StarWarsCharacters.js';
+import Home from './containers/HomeScreen/HomeScreen.js';
 
 import store from './store';
 
@@ -15,8 +14,8 @@ const App = () => (
     <BrowserRouter>
       <Switch>
         <Redirect exact from="/" to="/movies" />
-        <Route exact path="/movies" component={StarWarsMovies} />
-        <Route exact path="/characters" component={StarWarsCharacters} />
+        <Route exact path="/movies" component={Home} />
+        <Route exact path="/characters" component={Home} />
       </Switch>
     </BrowserRouter>
   </Provider>

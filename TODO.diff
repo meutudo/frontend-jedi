@@ -1,9 +1,0 @@
-- Instalar Bootstrap
-- Configurar SASS
-- Extrair CSS do JS
-
-
-A tela inicial deverá mostrar primeiramente os filmes existentes e numa outra aba os personagens existentes;
-
-DetailsContainer
-Ao clicar num filme ou personagem, deverão ser exibidos os detalhes dos mesmos.
