@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
+import Container from 'react-bootstrap/Container';
 import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import CustomList from '../../presentational/CustomList/CustomList.js';
+import MovieCard from '../../presentational/MovieCard/MovieCard.js';
+import CharacterCard from '../../presentational/CharacterCard/CharacterCard.js';
 
 import { fetchMovies } from '../../store/starWarsMovies';
 import { fetchCharacters } from '../../store/starWarsCharacters';
@@ -12,42 +15,36 @@ import { fetchCharacters } from '../../store/starWarsCharacters';
 class HomeScreen extends Component {
   constructor(props, context) {
     super(props, context);
-
     this.state = {
-      key: this.props.location.pathname.substring(1),
+      activeTabKey: this.props.location.pathname.substring(1),
     };
   }
 
   componentDidMount() {
-    const key = this.state.key;
-    switch (key) {
+    const activeTabKey = this.state.activeTabKey;
+    switch (activeTabKey) {
       case 'movies':
-        console.log('movies');
         this.props.fetchMovies();
         break;
       case 'characters':
-        console.log('characters');
         this.props.fetchCharacters();
         break;
       default:
     }
   }
 
-  onSelectTab(key) {
-    if(key === this.state.key) {
+  onSelectTab(activeTabKey) {
+    if(activeTabKey === this.state.activeTabKey) {
       return;
     }
+    this.props.history.push(`/${activeTabKey}`);
+    this.setState({activeTabKey});
 
-    this.props.history.push(`/${key}`);
-    this.setState({key});
-
-    switch (key) {
+    switch (activeTabKey) {
       case 'movies':
-        console.log('movies');
         this.props.fetchMovies();
         break;
       case 'characters':
-        console.log('characters');
         this.props.fetchCharacters();
         break;
       default:
@@ -56,21 +53,21 @@ class HomeScreen extends Component {
 
   render() {
     const { movies, characters } = this.props;
-    console.log('movies', movies);
-    console.log('characters', characters);
     return (
-      <Tabs
-        id="controlled-tab-example"
-        activeKey={this.state.key}
-        onSelect={key => this.onSelectTab(key)}
-      >
-        <Tab eventKey="movies" title="Movies">
-          <CustomList data={movies} />
-        </Tab>
-        <Tab eventKey="characters" title="Characters">
-          <CustomList data={characters} />
-        </Tab>
-      </Tabs>
+      <Container fluid className="py-3">
+        <Tabs
+          id="controlled-tab"
+          activeKey={this.state.activeTabKey}
+          onSelect={activeTabKey => this.onSelectTab(activeTabKey)}
+        >
+          <Tab eventKey="movies" title="Movies" className="py-3">
+            <CustomList typeSlug={this.state.activeTabKey} cardComponent={MovieCard} data={movies} />
+          </Tab>
+          <Tab eventKey="characters" title="Characters">
+            <CustomList typeSlug={this.state.activeTabKey} cardComponent={CharacterCard} data={characters} />
+          </Tab>
+        </Tabs>
+      </Container>
     );
   }
 }

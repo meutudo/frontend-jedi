@@ -1,8 +1,7 @@
 import React from 'react';
 import CardColumns from 'react-bootstrap/CardColumns';
-import CustomCard from '../CustomCard/CustomCard.js';
 
-const renderCards = data => {
+const renderCards = (data, typeSlug, Card) => {
   return data.map((item, index) => {
     let key = `${index}-${
       item.name || item.title
@@ -10,20 +9,23 @@ const renderCards = data => {
         .toLowerCase()
     }`;
 
-    return <CustomCard
-      imageUrl="https://picsum.photos/200/90" key={key}/>;
+    return <Card
+      data={item}
+      typeSlug={typeSlug}
+      key={key}/>;
   });
 }
 
 const CustomList = props => {
-  const movies = props.data
+  const data = props.data
     ? props.data.results
     : null;
+  const { typeSlug, cardComponent: Card } = props;
 
   return (
     <div>
       <CardColumns>
-        { movies && renderCards(movies) }
+        { data && renderCards(data, typeSlug, Card) }
       </CardColumns>
     </div>
   );
