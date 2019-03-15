@@ -6,10 +6,10 @@ export const Types = {
 };
 
 // Action Creators
-export function fetchMovies() {
-  console.log('Fetch Movies ACTION CREATOR');
+export function fetchMovies(page) {
+  console.log('Fetch Movies ACTION CREATOR', page);
   return function(dispatch) {
-    return fetch('https://swapi.co/api/films/') // https://jsonplaceholder.typicode.com/todos/
+    return fetch(`https://swapi.co/api/films?page=${page}`)
       .then(response => response.json())
       .then(json => {
         console.log('Fetch Movies: then... dispatch...', json);

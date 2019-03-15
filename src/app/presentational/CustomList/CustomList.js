@@ -1,5 +1,7 @@
 import React from 'react';
 import CardColumns from 'react-bootstrap/CardColumns';
+import Row from 'react-bootstrap/Row';
+import ArrowsPagination from '../ArrowsPagination/ArrowsPagination';
 
 const renderCards = (data, typeSlug, Card) => {
   return data.map((item, index) => {
@@ -17,16 +19,24 @@ const renderCards = (data, typeSlug, Card) => {
 }
 
 const CustomList = props => {
-  const data = props.data
-    ? props.data.results
-    : null;
+  const { data: { results: items, next: nextPageUrl, previous: previousPageUrl } } = props;
   const { typeSlug, cardComponent: Card } = props;
 
   return (
     <div>
-      <CardColumns>
-        { data && renderCards(data, typeSlug, Card) }
-      </CardColumns>
+      <Row className="px-3 pt-3">
+        <CardColumns>
+          { items && renderCards(items, typeSlug, Card) }
+        </CardColumns>
+      </Row>
+
+      <Row className="justify-content-center">
+        <ArrowsPagination
+          next={nextPageUrl}
+          previous={previousPageUrl}
+          onPaginationChange={action => props.onPaginationChange(action)}
+        />
+      </Row>
     </div>
   );
 }

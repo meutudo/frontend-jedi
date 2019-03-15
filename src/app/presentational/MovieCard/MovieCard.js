@@ -17,8 +17,6 @@ const CustomCard = props => {
   const slugSplited = url.split('/');
   const slugId = slugSplited[slugSplited.length-2];
 
-  console.log('Inside Character Card', props.data);
-
   return (
     <Card className="bg-dark text-white p">
       <Card.Body>

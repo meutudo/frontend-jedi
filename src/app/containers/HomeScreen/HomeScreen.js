@@ -15,19 +15,29 @@ import { fetchCharacters } from '../../store/starWarsCharacters';
 class HomeScreen extends Component {
   constructor(props, context) {
     super(props, context);
+
+    const page = new URLSearchParams(this.props.history.location.search)
+      .get('page') || 1;
+
     this.state = {
       activeTabKey: this.props.location.pathname.substring(1),
+      page
     };
   }
 
   componentDidMount() {
     const activeTabKey = this.state.activeTabKey;
+    const page = this.state.page || 1;
+    this.fetchData(activeTabKey, page);
+  }
+
+  fetchData(activeTabKey, page) {
     switch (activeTabKey) {
       case 'movies':
-        this.props.fetchMovies();
+        this.props.fetchMovies(page);
         break;
       case 'characters':
-        this.props.fetchCharacters();
+        this.props.fetchCharacters(page);
         break;
       default:
     }
@@ -40,31 +50,50 @@ class HomeScreen extends Component {
     this.props.history.push(`/${activeTabKey}`);
     this.setState({activeTabKey});
 
-    switch (activeTabKey) {
-      case 'movies':
-        this.props.fetchMovies();
-        break;
-      case 'characters':
-        this.props.fetchCharacters();
-        break;
-      default:
+    const page = 1;
+    this.fetchData(activeTabKey, page);
+  }
+
+  onPaginationChange(action) {
+    console.log('onPaginationChange');
+    const { pathname } = this.props.history.location;
+    let { page } = this.state;
+
+    console.log(page);
+    console.log(action);
+
+    if(action === 'next') {
+      page++;
+    } else {
+      page--;
     }
+    this.setState({page});
+    this.props.history.push(`${pathname}?page=${page}`);
+    this.props.fetchCharacters(page);
   }
 
   render() {
     const { movies, characters } = this.props;
     return (
-      <Container fluid className="py-3">
+      <Container fluid className="pt-3">
         <Tabs
           id="controlled-tab"
           activeKey={this.state.activeTabKey}
           onSelect={activeTabKey => this.onSelectTab(activeTabKey)}
         >
-          <Tab eventKey="movies" title="Movies" className="py-3">
-            <CustomList typeSlug={this.state.activeTabKey} cardComponent={MovieCard} data={movies} />
+          <Tab eventKey="movies" title="Movies">
+            <CustomList
+              typeSlug={this.state.activeTabKey}
+              cardComponent={MovieCard}
+              data={movies}
+              onPaginationChange={() => this.onPaginationChange()} />
           </Tab>
           <Tab eventKey="characters" title="Characters">
-            <CustomList typeSlug={this.state.activeTabKey} cardComponent={CharacterCard} data={characters} />
+            <CustomList
+              typeSlug={this.state.activeTabKey}
+              cardComponent={CharacterCard}
+              data={characters}
+              onPaginationChange={(action) => this.onPaginationChange(action)} />
           </Tab>
         </Tabs>
       </Container>
@@ -74,8 +103,8 @@ class HomeScreen extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchMovies: () => dispatch(fetchMovies()),
-    fetchCharacters: () => dispatch(fetchCharacters())
+    fetchMovies: page => dispatch(fetchMovies(page)),
+    fetchCharacters: page => dispatch(fetchCharacters(page))
   };
 }
 

@@ -14,8 +14,13 @@ const App = () => (
     <BrowserRouter>
       <Switch>
         <Redirect exact from="/" to="/movies" />
+
         <Route exact path="/movies" component={Home} />
+        <Route exact path="/movies" component={Home} />
+
         <Route exact path="/characters" component={Home} />
+        <Route exact path="/characters" component={Home} />
+
       </Switch>
     </BrowserRouter>
   </Provider>
