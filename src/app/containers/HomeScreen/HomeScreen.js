@@ -72,8 +72,33 @@ class HomeScreen extends Component {
     this.props.fetchCharacters(page);
   }
 
+  renderMovies() {
+    const { movies } = this.props;
+    return movies ?
+      <CustomList
+        typeSlug={this.state.activeTabKey}
+        cardComponent={MovieCard}
+        data={movies}
+        onPaginationChange={() => this.onPaginationChange()}
+      /> :
+      <div>No movies to show...</div>
+  }
+
+  renderCharacters() {
+    const { characters } = this.props;
+    return characters ?
+      <CustomList
+        typeSlug={this.state.activeTabKey}
+        cardComponent={CharacterCard}
+        data={characters}
+        onPaginationChange={(action) => this.onPaginationChange(action)}
+      /> :
+      <div></div>
+  }
+
+
   render() {
-    const { movies, characters } = this.props;
+    const { movies, characters, isFetchingMovies, isFetchingCharacters } = this.props;
     return (
       <Container fluid className="pt-3">
         <Tabs
@@ -82,18 +107,28 @@ class HomeScreen extends Component {
           onSelect={activeTabKey => this.onSelectTab(activeTabKey)}
         >
           <Tab eventKey="movies" title="Movies">
-            <CustomList
-              typeSlug={this.state.activeTabKey}
-              cardComponent={MovieCard}
-              data={movies}
-              onPaginationChange={() => this.onPaginationChange()} />
+            {
+              !isFetchingMovies ?
+                this.renderMovies() :
+                <div className="d-flex justify-content-center pt-4">
+
+                  <div className="spinner-border text-primary" role="status">
+                    <span className="sr-only">Loading movies...</span>
+                  </div>
+
+                </div>
+            }
           </Tab>
           <Tab eventKey="characters" title="Characters">
-            <CustomList
-              typeSlug={this.state.activeTabKey}
-              cardComponent={CharacterCard}
-              data={characters}
-              onPaginationChange={(action) => this.onPaginationChange(action)} />
+            {
+              !isFetchingCharacters ?
+                this.renderCharacters() :
+                <div className="d-flex justify-content-center pt-4">
+                  <div className="spinner-border text-primary" role="status">
+                    <span className="sr-only">Loading characters...</span>
+                  </div>
+                </div>
+            }
           </Tab>
         </Tabs>
       </Container>
