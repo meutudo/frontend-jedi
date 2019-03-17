@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start:dev": "webpack-dev-server --hot --mode=development --config config/webpack.dev.js",
-    "build": "webpack --mode production --config config/webpack.prod.js"
+    "build": "webpack --mode production --config config/webpack.prod.js",
+    "start": "http-server dist"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
@@ -33,7 +34,8 @@
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.1",
     "webpack-merge": "^4.2.1",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "workbox-webpack-plugin": "^4.1.1"
   },
   "dependencies": {
     "react-hot-loader": "^4.8.0"
