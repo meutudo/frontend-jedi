@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Container from 'react-bootstrap/Container';
+import _ from 'lodash';
 import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import CustomList from '../../presentational/CustomList/CustomList.js';
+import SearchBar from '../../presentational/SearchBar/SearchBar.js';
 import MovieCard from '../../presentational/MovieCard/MovieCard.js';
 import CharacterCard from '../../presentational/CharacterCard/CharacterCard.js';
 
-import { fetchMovies } from '../../store/starWarsMovies';
-import { fetchCharacters } from '../../store/starWarsCharacters';
+import { fetchMovies, searchMovies } from '../../store/starWarsMovies';
+import { fetchCharacters, searchCharacters } from '../../store/starWarsCharacters';
 
 class HomeScreen extends Component {
   constructor(props, context) {
@@ -43,6 +45,18 @@ class HomeScreen extends Component {
     }
   }
 
+  searchData(activeTabKey, query) {
+    switch (activeTabKey) {
+      case 'movies':
+        this.props.searchMovies(query);
+        break;
+      case 'characters':
+        this.props.searchCharacters(query);
+        break;
+      default:
+    }
+  }
+
   onSelectTab(activeTabKey) {
     if(activeTabKey === this.state.activeTabKey) {
       return;
@@ -55,12 +69,8 @@ class HomeScreen extends Component {
   }
 
   onPaginationChange(action) {
-    console.log('onPaginationChange');
     const { pathname } = this.props.history.location;
     let { page } = this.state;
-
-    console.log(page);
-    console.log(action);
 
     if(action === 'next') {
       page++;
@@ -72,30 +82,45 @@ class HomeScreen extends Component {
     this.props.fetchCharacters(page);
   }
 
+  onSearchBarChange(activeTabKey, query) {
+    this.setState({page: 1});
+    this.searchData(activeTabKey, query);
+  }
+
   renderMovies() {
     const { movies } = this.props;
     return movies ?
-      <CustomList
-        typeSlug={this.state.activeTabKey}
-        cardComponent={MovieCard}
-        data={movies}
-        onPaginationChange={() => this.onPaginationChange()}
-      /> :
-      <div>No movies to show...</div>
+        <CustomList
+          typeSlug={this.state.activeTabKey}
+          cardComponent={MovieCard}
+          data={movies}
+          onPaginationChange={() => this.onPaginationChange(action)}
+        /> :
+        <span>No movies to show</span>
   }
 
   renderCharacters() {
     const { characters } = this.props;
     return characters ?
-      <CustomList
-        typeSlug={this.state.activeTabKey}
-        cardComponent={CharacterCard}
-        data={characters}
-        onPaginationChange={(action) => this.onPaginationChange(action)}
-      /> :
-      <div></div>
+        <CustomList
+          typeSlug={this.state.activeTabKey}
+          cardComponent={CharacterCard}
+          data={characters}
+          onPaginationChange={(action) => this.onPaginationChange(action)}
+        /> :
+        <span>No characters to show</span>
   }
 
+  renderSearchBar() {
+    const { activeTabKey } = this.state;
+    return (
+      <div className="pt-3">
+        <SearchBar handleChange={_.debounce(query => {
+          this.onSearchBarChange(activeTabKey, query)
+        }, 300)} />
+      </div>
+    );
+  }
 
   render() {
     const { movies, characters, isFetchingMovies, isFetchingCharacters } = this.props;
@@ -107,6 +132,7 @@ class HomeScreen extends Component {
           onSelect={activeTabKey => this.onSelectTab(activeTabKey)}
         >
           <Tab eventKey="movies" title="Movies">
+            { this.renderSearchBar() }
             {
               !isFetchingMovies ?
                 this.renderMovies() :
@@ -120,6 +146,7 @@ class HomeScreen extends Component {
             }
           </Tab>
           <Tab eventKey="characters" title="Characters">
+            { this.renderSearchBar() }
             {
               !isFetchingCharacters ?
                 this.renderCharacters() :
@@ -139,7 +166,10 @@ class HomeScreen extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     fetchMovies: page => dispatch(fetchMovies(page)),
-    fetchCharacters: page => dispatch(fetchCharacters(page))
+    searchMovies: query => dispatch(searchMovies(query)),
+
+    fetchCharacters: page => dispatch(fetchCharacters(page)),
+    searchCharacters: query => dispatch(searchCharacters(query))
   };
 }
 

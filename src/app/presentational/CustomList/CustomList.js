@@ -24,12 +24,11 @@ const CustomList = props => {
 
   return (
     <div>
-      <Row className="px-3 pt-3">
+      <Row className="px-3 pt-2">
         <CardColumns>
           { items && renderCards(items, typeSlug, Card) }
         </CardColumns>
       </Row>
-
       <Row className="justify-content-center">
         <ArrowsPagination
           next={nextPageUrl}
