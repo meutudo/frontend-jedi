@@ -11,7 +11,7 @@ const CharacterCard = props => {
     eye_color: eyeColor,
     skin_color: skinColor
   } = props.data;
-  const { type } = props;
+  const { typeSlug } = props;
 
   // REVIEW IT
   const slugSplited = url.split('/');
@@ -29,7 +29,7 @@ const CharacterCard = props => {
         <Card.Text>
           Skin Color: {skinColor}
         </Card.Text>
-        <LinkContainer to={`/${type}/${slugId}`}>
+        <LinkContainer to={`/${typeSlug}/${slugId}`}>
           <Card.Link>
             See more...
           </Card.Link>

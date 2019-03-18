@@ -11,7 +11,7 @@ const CustomCard = props => {
     producer,
     url
   } = props.data;
-  const { type } = props;
+  const { typeSlug } = props;
 
   // REVIEW IT
   const slugSplited = url.split('/');
@@ -25,7 +25,7 @@ const CustomCard = props => {
           Opening Crawl: {openingCrawl}
         </Card.Text>
         <Card.Text>Producer: {producer}</Card.Text>
-        <LinkContainer to={`/${type}/${slugId}`}>
+        <LinkContainer to={`/${typeSlug}/${slugId}`}>
           <Card.Link>
             See more...
           </Card.Link>

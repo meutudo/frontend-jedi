@@ -137,11 +137,9 @@ class HomeScreen extends Component {
               !isFetchingMovies ?
                 this.renderMovies() :
                 <div className="d-flex justify-content-center pt-4">
-
                   <div className="spinner-border text-primary" role="status">
                     <span className="sr-only">Loading movies...</span>
                   </div>
-
                 </div>
             }
           </Tab>
