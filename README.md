@@ -40,5 +40,18 @@ Em qualquer uma das telas deverá ser possível realizar uma pesquisa relativa a
 - Boas práticas
 
 # Como enviar
-- Para envio do código: Basta fazer um fork desse projeto, e ao final do teste abrir um Pull Request. 
+- Para envio do código: Basta fazer um fork desse projeto, e ao final do teste abrir um Pull Request.
 - A aplicação deve ser hospedada na AWS.
+
+
+# Ambiente de Desenvolvimento e Deploy
+
+
+- Desenvolvimento
+```yarn start:dev```
+
+- Executar build localmente
+```yarn start```
+
+- Gerar build (dist)
+```yarn build```

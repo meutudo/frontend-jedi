@@ -1,8 +1,8 @@
 {
   "scripts": {
     "start:dev": "webpack-dev-server --hot --mode=development --config config/webpack.dev.js",
-    "build": "webpack --mode production --config config/webpack.prod.js",
-    "start": "npm run build && http-server dist"
+    "start": "rimraf dist && npm run build && node server",
+    "build": "webpack --mode production --config config/webpack.prod.js"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
@@ -29,6 +29,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "rimraf": "^2.6.3",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.1.2",
