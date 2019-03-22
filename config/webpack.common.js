@@ -1,14 +1,16 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, '../src'),
-  entry: './app/index.js',
+  entry: {
+    index: './app/index.js',
+    sw: './app/sw.js'
+  },
   output: {
     publicPath: '/',
     path: path.resolve(__dirname, '../dist'),
-    filename: 'index.bundle.js',
+    filename: '[name].bundle.js',
   },
   module: {
     rules: [
@@ -36,12 +38,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '../src/app/index.html'),
-    }),
-    new WorkboxPlugin.GenerateSW({
-      // these options encourage the ServiceWorkers to get in there fast
-      // and not allow any straggling "old" SWs to hang around
-      clientsClaim: true,
-      skipWaiting: true
     })
   ]
 }
