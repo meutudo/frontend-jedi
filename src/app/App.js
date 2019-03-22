@@ -9,6 +9,8 @@ import Home from './containers/HomeScreen/HomeScreen.js';
 import MovieDetails from './containers/MovieDetailsScreen/MovieDetailsScreen.js';
 import CharacterDetails from './containers/CharacterDetailsScreen/CharacterDetailsScreen.js';
 
+import style from './App.scss';
+
 import store from './store';
 
 const App = () => (
