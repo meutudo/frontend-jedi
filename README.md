@@ -46,7 +46,6 @@ Em qualquer uma das telas deverá ser possível realizar uma pesquisa relativa a
 
 # Ambiente de Desenvolvimento e Deploy
 
-
 - Desenvolvimento
 ```yarn start:dev```
 
@@ -55,3 +54,6 @@ Em qualquer uma das telas deverá ser possível realizar uma pesquisa relativa a
 
 - Gerar build (dist)
 ```yarn build```
+
+# Ambiente de testes
+[Amazon AWS EC2](http://ec2-3-16-155-237.us-east-2.compute.amazonaws.com:3000/movies)
