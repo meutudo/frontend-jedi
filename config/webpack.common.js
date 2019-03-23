@@ -1,11 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, '../src'),
   entry: {
-    index: './app/index.js',
-    sw: './app/sw.js'
+    index: './app/index.js'
   },
   output: {
     publicPath: '/',
@@ -38,6 +38,24 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '../src/app/index.html'),
-    })
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../src/app/service-worker.js'),
+        to: path.resolve(__dirname, '../dist/service-worker.js')
+      },
+      {
+        from: path.resolve(__dirname, '../src/app/manifest.json'),
+        to: path.resolve(__dirname, '../dist/manifest.json')
+      },
+      {
+        from: path.resolve(__dirname, '../src/assets/images/pwa-icons/icons-192.png'),
+        to: path.resolve(__dirname, '../dist/icons-192.png')
+      },
+      {
+        from: path.resolve(__dirname, '../src/assets/images/pwa-icons/icons-512.png'),
+        to: path.resolve(__dirname, '../dist/icons-512.png')
+      }
+    ])
   ]
 }
