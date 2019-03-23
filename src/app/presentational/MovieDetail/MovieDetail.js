@@ -4,9 +4,8 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import style from './MovieDetail.scss';
-
 export default ({data}) => {
+  console.log(data);
   return (
     <Container className="movie-detail" fluid className="pt-3">
       <Card className="bg-dark text-white p">
@@ -17,7 +16,7 @@ export default ({data}) => {
               <Button className="float-right mb-3" variant="outline-light">Go Back</Button>
             </LinkContainer>
           </Card.Title>
-          <Card.Img className="img mb-4" variant="bottom" src={require(`../../../assets/images/starwars_episode_${1}.jpg`)} />
+          <Card.Img className="img mb-4" variant="bottom" src={require(`../../../assets/images/starwars_episode_${data.episode_id}.jpg`)} />
           <Card.Text>{data && data.opening_crawl}</Card.Text>
           <Card.Text>Directed by {data && data.director}</Card.Text>
           <Card.Text>Produced by {data && data.producer}</Card.Text>

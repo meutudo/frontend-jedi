@@ -22,7 +22,7 @@ const CharacterCard = props => {
   return (
     <Card className="bg-dark text-white">
       <Card.Body>
-        <Card.Title>Character - {name} Character</Card.Title>
+        <Card.Title>{name}</Card.Title>
         <Card.Text>
           Eye Color: {eyeColor}
         </Card.Text>
