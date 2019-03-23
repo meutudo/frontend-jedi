@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WebappWebpackPlugin = require('webapp-webpack-plugin')
 
 module.exports = {
   context: path.resolve(__dirname, '../src'),
@@ -54,6 +55,22 @@ module.exports = {
         from: path.resolve(__dirname, '../src/assets/images/pwa-icons/icons-512.png'),
         to: path.resolve(__dirname, '../dist/icons-512.png')
       }
-    ])
+    ]),
+    new WebappWebpackPlugin({
+      logo: path.resolve(__dirname, '../src/assets/images/pwa-icons/icons-192.png'),
+      prefix: '/',
+      favicons: {
+        appName: 'FontEndJedi',
+        appDescription: 'Test App for FrontEndJedi role',
+        developerName: 'André Pesci Cazetto',
+        developerURL: null,
+        background: '#FFF',
+        theme_color: '#000',
+        icons: {
+          coast: false,
+          yandex: false
+        }
+      }
+    })
   ]
 }

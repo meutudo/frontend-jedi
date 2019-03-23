@@ -37,7 +37,7 @@ module.exports = merge(common, {
     new ImageminPlugin({
       test: /\.(jpe?g|png|gif|svg)$/i,
       pngquant: ({
-        quality: [0.5, 0.5]
+        quality: 80
       })
     })
   ]
