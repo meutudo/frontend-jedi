@@ -1,0 +1,15 @@
+{
+  "short_name": "Frontend jedi",
+  "name": "Star Wars App Sample",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": "http://frontendjedi-env.vpvy54u48b.us-east-2.elasticbeanstalk.com/pwa_launcher=true",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
