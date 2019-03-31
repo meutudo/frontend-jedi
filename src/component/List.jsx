@@ -4,6 +4,8 @@ import {
 } from 'prop-types';
 
 class List extends PureComponent {
+  renderLoading = () => (<div>Loading...</div>)
+
   renderNoData = () => (
     <div>
       Nenhum resultado encontrado :(
@@ -11,7 +13,9 @@ class List extends PureComponent {
   );
 
   renderContent = () => {
-    const { items, renderRow, loadMore } = this.props;
+    const {
+      items, renderRow, loadMore, loadMoreAction,
+    } = this.props;
     return (
       <div>
         <div>
@@ -19,7 +23,7 @@ class List extends PureComponent {
         </div>
         {loadMore && (
         <div>
-          <button type="button"> Carregar mais </button>
+          <button type="button" onClick={loadMoreAction}> Carregar mais </button>
         </div>
         )}
       </div>
@@ -27,20 +31,26 @@ class List extends PureComponent {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, isLoading } = this.props;
+    if (isLoading) {
+      return this.renderLoading();
+    }
     return items.length ? this.renderContent() : this.renderNoData();
   }
 }
 
 List.propTypes = {
   items: arrayOf(object),
-  renderRow: func.isRequired,
   loadMore: bool,
+  isLoading: bool,
+  renderRow: func.isRequired,
+  loadMoreAction: func.isRequired,
 };
 
 List.defaultProps = {
   items: [],
   loadMore: false,
+  isLoading: false,
 };
 
 export default List;

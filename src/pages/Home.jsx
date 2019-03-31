@@ -13,7 +13,7 @@ import { getFilms, getCharacters } from '../api/client';
 
 
 class Home extends PureComponent {
-  debounceAction = debounce(this.searchByText, 800);
+  debounceAction = debounce(value => this.searchByText(value), 800);
 
   searchByText = (value) => {
     const { tabSelectedIndex, fetchMovies, fetchCharacters } = this.props;

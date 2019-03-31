@@ -1,17 +1,20 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
+import identity from 'lodash/identity';
 import { connect } from 'react-redux';
 import {
-  arrayOf, bool, func, object,
+  arrayOf, func, object, string, bool,
 } from 'prop-types';
 import { getFilms } from '../api/client';
-import { movies } from '../redux';
+import { movies, ui } from '../redux';
 import List from '../component/List';
 
 class MovieList extends PureComponent {
   componentDidMount() {
-    const { fetchMovies } = this.props;
+    const { fetchMovies, toggleLoading } = this.props;
+    toggleLoading();
     getFilms().then((result) => {
+      toggleLoading();
       fetchMovies(result.results);
     });
   }
@@ -26,26 +29,36 @@ class MovieList extends PureComponent {
   );
 
   render() {
-    const { movieList, loadMore } = this.props;
+    const { movieList, loadMoreUrl, isLoading } = this.props;
     return (
-      <List items={movieList} loadMore={loadMore} renderRow={this.renderRow} />
+      <List
+        items={movieList}
+        loadMore={Boolean(loadMoreUrl)}
+        renderRow={this.renderRow}
+        loadMoreAction={identity}
+        isLoading={isLoading}
+      />
     );
   }
 }
 
 MovieList.propTypes = {
   movieList: arrayOf(object).isRequired,
-  loadMore: bool.isRequired,
+  loadMoreUrl: string.isRequired,
+  isLoading: bool.isRequired,
   fetchMovies: func.isRequired,
+  toggleLoading: func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  movieList: state.movies.get('movies'),
-  loadMore: state.characters.get('hasNext'),
+  movieList: state.movies.get('movies', [{}]),
+  loadMoreUrl: state.characters.get('loadMoreUrl'),
+  isLoading: state.ui.get('loading'),
 });
 
 const mapDispatchToProps = {
   fetchMovies: movies.actions.fetchMovies,
+  toggleLoading: ui.actions.toggleLoading,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieList);

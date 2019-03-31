@@ -23,7 +23,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "airbnb"
+    ]
   },
   "browserslist": [
     ">0.2%",
@@ -32,7 +35,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "eslint": "5.12.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-react-app": "^3.0.8",
     "eslint-plugin-flowtype": "^3.4.2",
