@@ -1,4 +1,4 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call } from 'redux-saga/effects';
 import { ui } from '../modules';
 
 function* dispatchRequest({ payload }) {
@@ -11,7 +11,7 @@ function* dispatchRequest({ payload }) {
 }
 
 function* watchRequests() {
-  yield takeLatest('fetch/REQUESTED', dispatchRequest);
+  yield takeEvery('fetch/REQUESTED', dispatchRequest);
 }
 
 export default watchRequests;
