@@ -2,13 +2,15 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { shape, func } from 'prop-types';
 import { getFilmById } from '../api/client';
-import { movies } from '../redux';
+import { movies, requests } from '../redux';
 
 class MovieDetail extends PureComponent {
   componentDidMount() {
-    const { match: { params: { id } }, fetchMovie } = this.props;
-    getFilmById(id).then((result) => {
-      fetchMovie(result);
+    const { match: { params: { id } }, fetchMovie, requestApi } = this.props;
+    requestApi({
+      fetch: getFilmById,
+      args: id,
+      callBack: fetchMovie,
     });
   }
 
@@ -27,6 +29,7 @@ MovieDetail.propTypes = {
   movie: shape.isRequired,
   fetchMovie: func.isRequired,
   match: shape.isRequired,
+  requestApi: func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -35,6 +38,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchMovie: movies.actions.fetchMovieSelected,
+  requestApi: requests.actions.requestApi,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieDetail);

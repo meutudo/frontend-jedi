@@ -2,13 +2,15 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { shape, func } from 'prop-types';
 import { getCharacterById } from '../api/client';
-import { characters } from '../redux';
+import { characters, requests } from '../redux';
 
 class CharacterDetail extends PureComponent {
   componentDidMount() {
-    const { match: { params: { id } }, fetchCharacter } = this.props;
-    getCharacterById(id).then((result) => {
-      fetchCharacter(result);
+    const { match: { params: { id } }, fetchCharacter, requestApi } = this.props;
+    requestApi({
+      fetch: getCharacterById,
+      args: id,
+      callBack: fetchCharacter,
     });
   }
 
@@ -26,6 +28,7 @@ CharacterDetail.propTypes = {
   character: shape.isRequired,
   match: shape.isRequired,
   fetchCharacter: func.isRequired,
+  requestApi: func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -34,6 +37,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchCharacter: characters.actions.fetchCharacterSelected,
+  requestApi: requests.actions.requestApi,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CharacterDetail);

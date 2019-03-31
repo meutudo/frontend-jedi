@@ -4,26 +4,25 @@ import { Link } from 'react-router-dom';
 import {
   arrayOf, object, func, string, bool,
 } from 'prop-types';
-import { characters, ui } from '../redux';
+import { characters, requests } from '../redux';
 import { getCharacters, getByUrl } from '../api/client';
 import List from '../component/List';
 
 class CharactersList extends PureComponent {
   componentDidMount() {
-    const { fetchCharacters, toggleLoading } = this.props;
-    toggleLoading();
-    getCharacters().then((result) => {
-      toggleLoading();
-      fetchCharacters(result);
+    const { fetchCharacters, requestApi } = this.props;
+    requestApi({
+      fetch: getCharacters,
+      callBack: fetchCharacters,
     });
   }
 
   loadAction = () => {
-    const { loadMoreUrl, appendCharacters, toggleLoading } = this.props;
-    toggleLoading();
-    getByUrl(loadMoreUrl).then((result) => {
-      toggleLoading();
-      appendCharacters(result);
+    const { loadMoreUrl, appendCharacters, requestApi } = this.props;
+    requestApi({
+      args: loadMoreUrl,
+      callBack: appendCharacters,
+      fetch: getByUrl,
     });
   }
 
@@ -56,7 +55,7 @@ CharactersList.propTypes = {
   isLoading: bool.isRequired,
   fetchCharacters: func.isRequired,
   appendCharacters: func.isRequired,
-  toggleLoading: func.isRequired,
+  requestApi: func.isRequired,
 };
 
 CharactersList.defaultProps = {
@@ -72,7 +71,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchCharacters: characters.actions.fetchCharacters,
   appendCharacters: characters.actions.appendCharacters,
-  toggleLoading: ui.actions.toggleLoading,
+  requestApi: requests.actions.requestApi,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CharactersList);

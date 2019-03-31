@@ -6,16 +6,15 @@ import {
   arrayOf, func, object, string, bool,
 } from 'prop-types';
 import { getFilms } from '../api/client';
-import { movies, ui } from '../redux';
+import { movies, requests } from '../redux';
 import List from '../component/List';
 
 class MovieList extends PureComponent {
   componentDidMount() {
-    const { fetchMovies, toggleLoading } = this.props;
-    toggleLoading();
-    getFilms().then((result) => {
-      toggleLoading();
-      fetchMovies(result.results);
+    const { fetchMovies, requestApi } = this.props;
+    requestApi({
+      fetch: getFilms,
+      callBack: fetchMovies,
     });
   }
 
@@ -23,7 +22,7 @@ class MovieList extends PureComponent {
     <div key={`film_${index}`}>
       <div>{film.title}</div>
       <div>
-        <Link to={`film/${index + 1}`}> details </Link>
+        <Link to={`movie/${index + 1}`}> details </Link>
       </div>
     </div>
   );
@@ -47,7 +46,7 @@ MovieList.propTypes = {
   loadMoreUrl: string.isRequired,
   isLoading: bool.isRequired,
   fetchMovies: func.isRequired,
-  toggleLoading: func.isRequired,
+  requestApi: func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -58,7 +57,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchMovies: movies.actions.fetchMovies,
-  toggleLoading: ui.actions.toggleLoading,
+  requestApi: requests.actions.requestApi,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieList);

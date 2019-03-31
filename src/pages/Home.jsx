@@ -6,10 +6,11 @@ import { number, func } from 'prop-types';
 import { InputBase, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import debounce from 'lodash/debounce';
-import { ui, movies, characters } from '../redux';
+import { ui, movies, characters, requests } from '../redux';
 import MovieList from './MovieList';
 import CharactersList from './CharactersList';
 import { getFilms, getCharacters } from '../api/client';
+import { requestApi } from '../redux/modules/requests/requestActions';
 
 
 class Home extends PureComponent {
@@ -17,13 +18,11 @@ class Home extends PureComponent {
 
   searchByText = (value) => {
     const { tabSelectedIndex, fetchMovies, fetchCharacters } = this.props;
-    if (tabSelectedIndex === 0) {
-      getFilms(value).then(result => fetchMovies(result.results));
-    } else {
-      getCharacters(value).then((result) => {
-        fetchCharacters(result);
-      });
-    }
+    requestApi({
+      fetch: tabSelectedIndex ? getCharacters : getFilms,
+      args: value,
+      callback: tabSelectedIndex ? fetchCharacters : fetchMovies,
+    });
   }
 
   onChange = (event) => {
@@ -61,6 +60,7 @@ Home.propTypes = {
   setTabSelectedIndex: func.isRequired,
   fetchMovies: func.isRequired,
   fetchCharacters: func.isRequired,
+  requestApi: func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -71,6 +71,7 @@ const mapDispatchToProps = {
   setTabSelectedIndex: ui.actions.setTabSelectedIndex,
   fetchMovies: movies.actions.fetchMovies,
   fetchCharacters: characters.actions.fetchCharacters,
+  requestApi: requests.actions.requestApi,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

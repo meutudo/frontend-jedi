@@ -11,7 +11,7 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
     case actions.FETCH_MOVIES:
       return state.merge({
-        movies: payload,
+        movies: payload.results,
         loadMoreUrl: payload.next,
       });
     case actions.FETCH_MOVIE_SELECTED:
