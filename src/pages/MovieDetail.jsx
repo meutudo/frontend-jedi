@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { shape, func } from 'prop-types';
 import { getFilmById } from '../api/client';
 import { movies } from '../redux';
 
@@ -10,7 +11,7 @@ class MovieDetail extends PureComponent {
       fetchMovie(result);
     });
   }
-  
+
   render() {
     const { movie } = this.props;
     return (
@@ -18,16 +19,22 @@ class MovieDetail extends PureComponent {
         <div>{movie.title}</div>
         <div>{movie.opening_crawl}</div>
       </Fragment>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => ({
-  movie: state.movies.get('movieSelected')
+MovieDetail.propTypes = {
+  movie: shape.isRequired,
+  fetchMovie: func.isRequired,
+  match: shape.isRequired,
+};
+
+const mapStateToProps = state => ({
+  movie: state.movies.get('movieSelected'),
 });
 
 const mapDispatchToProps = {
-  fetchMovie: movies.actions.fetchMovieSelected
+  fetchMovie: movies.actions.fetchMovieSelected,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieDetail);
