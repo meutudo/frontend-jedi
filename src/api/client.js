@@ -9,16 +9,19 @@ export const apiClient = ({ url, type = 'GET' }) => {
   cache: 'default' }).then(result => result.json());
 };
 
-export const getFilms = () => {
-  return apiClient({ url: 'films' })
+export const getFilms = (title) => {
+  const url = (title) ? `films?search=${title}` : 'films';
+  debugger;
+  return apiClient({ url });
 }
 
 export const getFilmById = (id) => {
   return apiClient({ url: `films/${id}` })
 }
 
-export const getCharacters = () => {
-  return apiClient({ url: 'people' })
+export const getCharacters = (name) => {
+    const url = (name) ? `people?search=${name}` : 'people';
+    return apiClient({ url });
 }
 
 export const getCharacterById = (id) => {
