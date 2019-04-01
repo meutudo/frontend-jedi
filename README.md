@@ -1,44 +1,68 @@
-# TUDO Jedis
-Aqui no Meu TUDO costumamos dizer que queremos sempre trabalhar com os melhores Jedis. E tudo bem se você ainda não for um mestre Jedi, basta querer ser o bastante.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# Nossa stack FrontEnd
-Por aqui utilizamos as seguintes tecnologias:
-- React
-- React Native
-- Redux
-- RxJs
-- Recompose
+## Available Scripts
 
-Basicamente ;)
+In the project directory, you can run:
 
-# Desafio
-## Criar um PWA do Star Wars
+### `npm start`
 
-Nosso CTO deseja usar um PWA que mostre para ele os filmes e personagens da série Star Wars. Para tal você deve usar a api do [SWAPI](https://swapi.co).
-Para essa aplicação, a tela inicial deverá mostrar primeiramente os filmes existentes, e numa outra aba os personagens existentes.
-Ao clicar num filme ou personagem, deverão ser exibidos os detalhes dos mesmos.
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Em qualquer uma das telas deverá ser possível realizar uma pesquisa relativa a seção atual. Ex.: Se estiver na tela de filmes, uma busca por filme e se estiver na tela de personagens, uma busca por personagens. Lembre-se de evitar fazer requests a cada caracter digitado.
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-## Requisitos
-- Deve ser um PWA
-- Deve ser feito utilizando React.js.
-- Deve ser utilizado redux para controle de estado.
-- Necessário o uso de rotas
+### `npm test`
 
-## Requisitos bônus
-### Requisitos não obrigatórios mas que serão levados em consideração
-- Boa qualidade de UI/UX
-- Baixo tempo de renderização
-- Listagem ondemand. (Se a lista tiver muitos itens, renderizar somente os itens visíveis na tela)
-- Testes
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-# Critério de Avaliação
-- Organização do projeto: estrutura, organização, documentação, etc.
-- Inovação tecnológica: Uso de tecnologias recentes (estáveis).
-- Coerência: Requisitos atendidos
-- Boas práticas
+### `npm run build`
 
-# Como enviar
-- Para envio do código: Basta fazer um fork desse projeto, e ao final do teste abrir um Pull Request. 
-- A aplicação deve ser hospedada na AWS.
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
