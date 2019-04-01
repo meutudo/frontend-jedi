@@ -13,6 +13,13 @@ import MovieList from './MovieList';
 import CharactersList from './CharactersList';
 import { getFilms, getCharacters } from '../api/client';
 
+const style = {
+  searchContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+};
+
 class Home extends PureComponent {
   debounceAction = debounce(value => this.searchByText(value), 800);
 
@@ -40,13 +47,17 @@ class Home extends PureComponent {
     const { tabSelectedIndex } = this.props;
     return (
       <section>
-        <div>
+        <div style={style.searchContainer}>
           <InputBase placeholder="Pesquisar" onChange={this.onChange} />
           <IconButton aria-label="Search">
             <SearchIcon />
           </IconButton>
         </div>
-        <Tabs value={tabSelectedIndex} onChange={this.setSelectedTab}>
+        <Tabs
+          value={tabSelectedIndex}
+          variant="fullWidth"
+          onChange={this.setSelectedTab}
+        >
           <Tab label="Filmes" />
           <Tab label="Personagens" />
         </Tabs>

@@ -1,5 +1,6 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { Typography } from '@material-ui/core';
 import { shape, func } from 'prop-types';
 import { getCharacterById } from '../api/client';
 import { characters, requests } from '../redux';
@@ -17,9 +18,26 @@ class CharacterDetail extends PureComponent {
   render() {
     const { character } = this.props;
     return (
-      <Fragment>
-        <div>{character.name}</div>
-      </Fragment>
+      <section className="detail character-detail">
+        <Typography variant="h5" component="h3">
+          {character.name}
+        </Typography>
+        <Typography component="p">
+          {`Ano de Nascimento: ${character.birth_year || ''}`}
+        </Typography>
+        <Typography component="p">
+          {`Cor do cabelo: ${character.hair_color || ''}`}
+        </Typography>
+        <Typography component="p">
+          {`Altura: ${character.height || ''} cm`}
+        </Typography>
+        <Typography component="p">
+          {`Massa: ${character.mass || ''}`}
+        </Typography>
+        <Typography component="p">
+          {`Cor da pele: ${character.skin_color || ''}`}
+        </Typography>
+      </section>
     );
   }
 }

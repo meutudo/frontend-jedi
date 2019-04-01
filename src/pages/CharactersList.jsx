@@ -4,9 +4,13 @@ import { Link } from 'react-router-dom';
 import {
   arrayOf, object, func, string, bool,
 } from 'prop-types';
+import {
+  ListItem, ListItemText, ListItemIcon, Divider,
+} from '@material-ui/core';
+import ArrowRight from '@material-ui/icons/ArrowRight';
 import { characters, requests } from '../redux';
 import { getCharacters, getByUrl } from '../api/client';
-import List from '../component/List';
+import CustomList from '../component/CustomList';
 
 class CharactersList extends PureComponent {
   componentDidMount() {
@@ -27,23 +31,25 @@ class CharactersList extends PureComponent {
   }
 
   renderRow = (character, index) => (
-    <div key={`character_${index}`}>
-      <div>{character.name}</div>
-      <div>
-        <Link to={`character/${index + 1}`}> Detalhes </Link>
-      </div>
-    </div>
+    <Link to={`character/${index + 1}`}>
+      <ListItem button key={`character_${index}`}>
+        <ListItemText primary={character.name} />
+        <ListItemIcon>
+          <ArrowRight />
+        </ListItemIcon>
+        <Divider />
+      </ListItem>
+    </Link>
   );
 
   render() {
     const { charactersList, loadMoreUrl, isLoading } = this.props;
     return (
-      <List
+      <CustomList
         items={charactersList}
-        loadMore={Boolean(loadMoreUrl)}
+        loadMore={!isLoading && Boolean(loadMoreUrl)}
         renderRow={this.renderRow}
         loadMoreAction={this.loadAction}
-        isLoading={isLoading}
       />
     );
   }

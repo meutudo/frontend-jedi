@@ -1,13 +1,17 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import identity from 'lodash/identity';
 import { connect } from 'react-redux';
+import {
+  ListItem, ListItemIcon, Divider, ListItemText,
+} from '@material-ui/core';
+import ArrowRight from '@material-ui/icons/ArrowRight';
 import {
   arrayOf, func, object, string, bool,
 } from 'prop-types';
 import { getFilms } from '../api/client';
 import { movies, requests } from '../redux';
-import List from '../component/List';
+import CustomList from '../component/CustomList';
 
 class MovieList extends PureComponent {
   componentDidMount() {
@@ -19,24 +23,28 @@ class MovieList extends PureComponent {
   }
 
   renderRow = (film, index) => (
-    <div key={`film_${index}`}>
-      <div>{film.title}</div>
-      <div>
-        <Link to={`movie/${index + 1}`}> details </Link>
-      </div>
-    </div>
+    <Link to={`movie/${index + 1}`}>
+      <ListItem button key={`film_${index}`}>
+        <ListItemText primary={film.title} />
+        <ListItemIcon>
+          <ArrowRight />
+        </ListItemIcon>
+        <Divider />
+      </ListItem>
+    </Link>
   );
 
   render() {
     const { movieList, loadMoreUrl, isLoading } = this.props;
     return (
-      <List
-        items={movieList}
-        loadMore={Boolean(loadMoreUrl)}
-        renderRow={this.renderRow}
-        loadMoreAction={identity}
-        isLoading={isLoading}
-      />
+      <Fragment>
+        <CustomList
+          items={movieList}
+          loadMore={!isLoading && Boolean(loadMoreUrl)}
+          renderRow={this.renderRow}
+          loadMoreAction={identity}
+        />
+      </Fragment>
     );
   }
 }
@@ -51,7 +59,7 @@ MovieList.propTypes = {
 
 const mapStateToProps = state => ({
   movieList: state.movies.get('movies', [{}]),
-  loadMoreUrl: state.characters.get('loadMoreUrl'),
+  loadMoreUrl: state.movies.get('loadMoreUrl'),
   isLoading: state.ui.get('loading'),
 });
 

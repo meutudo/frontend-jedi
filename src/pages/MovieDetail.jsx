@@ -1,6 +1,7 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { shape, func } from 'prop-types';
+import { Typography } from '@material-ui/core';
 import { getFilmById } from '../api/client';
 import { movies, requests } from '../redux';
 
@@ -17,10 +18,23 @@ class MovieDetail extends PureComponent {
   render() {
     const { movie } = this.props;
     return (
-      <Fragment>
-        <div>{movie.title}</div>
-        <div>{movie.opening_crawl}</div>
-      </Fragment>
+      <section className="detail movie-detail">
+        <Typography variant="h5" component="h3">
+          {movie.title}
+        </Typography>
+        <Typography component="p">
+          {movie.opening_crawl}
+        </Typography>
+        <Typography component="p">
+          {`Diretor: ${movie.director}`}
+        </Typography>
+        <Typography component="p">
+          {`Produtor(es): ${movie.producer}`}
+        </Typography>
+        <Typography component="p">
+          {`Lançado em: ${movie.release_date}`}
+        </Typography>
+      </section>
     );
   }
 }
