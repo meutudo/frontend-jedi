@@ -8,7 +8,7 @@
       "type": "image/x-icon"
     }
   ],
-  "start_url": "http://frontendjedi-env.vpvy54u48b.us-east-2.elasticbeanstalk.com/pwa_launcher=true",
+  "start_url": "http://frontend-jedi.s3-website-us-east-1.amazonaws.com/pwa_launcher=true",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
