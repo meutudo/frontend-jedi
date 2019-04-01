@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { shape, func } from 'prop-types';
+import { format } from 'date-fns';
 import { Typography } from '@material-ui/core';
 import { getFilmById } from '../api/client';
 import { movies, requests } from '../redux';
@@ -32,7 +33,7 @@ class MovieDetail extends PureComponent {
           {`Produtor(es): ${movie.producer}`}
         </Typography>
         <Typography component="p">
-          {`Lançado em: ${movie.release_date}`}
+          {`Lançado em: ${format(movie.release_date, 'DD/MM/YYYY')}`}
         </Typography>
       </section>
     );
